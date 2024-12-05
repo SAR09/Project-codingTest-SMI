@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Application\Services\AuthService;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\LoginRequest;
 
 
 class AuthController extends Controller
@@ -16,26 +17,14 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        //validasi input
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
-        // cek credentials login
-        $credentials = $request->only('username', 'password');
-        $user = $this->authService->login($credentials['username'], $credentials['password']);
-
-        if ($user) {
-            // mengembalikan ke halaman products jika login sukses
-            return redirect()->route('products.index');
+        try{
+            $user = $this->authService->login($request->username, $request->password); // Memanggil login service
+            return redirect()->route('products.index')->with('success', 'Anda berhasil login');
+        }catch(\Exception $e){
+            return redirect()->route('login')->with('error', $e->getMessage());
         }
-
-        return back()->withErrors([
-            'login_failed' => 'Gagal login, silahkan cek username dan password anda',
-        ]);
     }
 
   

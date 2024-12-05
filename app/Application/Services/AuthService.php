@@ -24,7 +24,8 @@ class AuthService{
             return $user;
         }
 
-        return null;
+        // jika gagal login, kembalikan pesan error
+        throw new \Exception('Username atau password salah');
     }
 
     public function logout()

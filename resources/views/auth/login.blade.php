@@ -7,15 +7,12 @@
             <h2 class="text-3xl font-semibold text-center text-gray-700 mb-6">Login</h2>
 
              <!-- Display error message if login fails -->
-            @if ($errors->any())
-                <div class="mb-4">
-                    <ul class="text-red-500">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+            @if (session('error'))
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    {{ session('error') }}
                 </div>
             @endif
+
 
             <form action="{{ route('auth.login') }}" method="POST">
                 @csrf

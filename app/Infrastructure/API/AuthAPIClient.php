@@ -15,19 +15,20 @@ class AuthApiClient implements AuthRepositoryInterface
             'password' => $password,
         ]);
 
-        $data = $response->json();
-        if(!isset($data['access_token'])){
+        if($response->status() == 200){
+            $data = json_decode($response->body(), true);
             return new User(
                 $data['id'],
                 $data['username'],
                 $data['email'],
-                $data['firstName'],
-                $data['lastName'],
-                $data['gender'],
-                $data['image'],
-                $data['accessToken'],
-                $data['refreshToken']
+                $data['first_name'],
+                $data['last_name'],
+                $data['phone'],
+                $data['address'],
+                $data['city'],
+                $data['country']
             );
+           
         }
 
         return null;
