@@ -21,12 +21,12 @@ class AuthApiClient implements AuthRepositoryInterface
                 $data['id'],
                 $data['username'],
                 $data['email'],
-                $data['first_name'],
-                $data['last_name'],
-                $data['phone'],
-                $data['address'],
-                $data['city'],
-                $data['country']
+                $data['firstName'],
+                $data['lastName'],
+                $data['gender'],
+                $data['image'],
+                $data['accessToken'],
+                $data['refreshToken']
             );
            
         }
